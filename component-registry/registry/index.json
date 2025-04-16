@@ -1,0 +1,14 @@
+[
+  {
+    "name": "social-banner",
+    "files": [
+      "components/ui/social-banner.tsx"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "Button"
+    ]
+  }
+]
