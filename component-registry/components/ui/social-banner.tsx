@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 // Define prop types for the component
 interface SocialBannerData {
@@ -10,6 +10,7 @@ interface SocialBannerData {
   buttonText: string;
   communityButtonText?: string;
   ctaButtonText?: string;
+  backgroundSvg?: string;
 }
 
 interface SocialBannerCommonConfig {
@@ -21,6 +22,10 @@ interface SocialBannerCommonConfig {
     description?: string;
     button?: number;
   };
+  svgConfig?: {
+    svgUrl?: string;
+    svgPosition?: string;
+  }
   textColor?: string;
 }
 
@@ -57,6 +62,7 @@ function SocialBanner({
     fontSize,
     buttonStyle = "square",
     textColor = "white",
+    svgConfig,
   } = commonConfig;
   const {
     primaryColor,
@@ -75,35 +81,45 @@ function SocialBanner({
     buttonText,
     communityButtonText = "JOIN OUR COMMUNITY",
     ctaButtonText = "Start Free Trial",
+    backgroundSvg,
   } = data;
 
   return (
     <div
-      className={className}
+      className={cn("relative", className)}
       style={{
+        backgroundColor: primaryColor,
         width: `${width}px`,
         height: `${height}px`,
-        backgroundColor: primaryColor,
       }}
     >
-      <div className="grid grid-cols-[20%_60%_20%]">
+      <div
+        className="absolute right-0 w-full h-full"
+        style={{
+          backgroundImage: `url(${svgConfig?.svgUrl})`,
+          backgroundSize: "contain",
+          backgroundPosition: `${svgConfig?.svgPosition}`,
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      <div className="relative grid grid-cols-[20%_60%_20%]">
         {/* JOIN OUR COMMUNITY button at top left */}
         <div className={`font-${secondaryFont} pl-[40px] pt-[40px]`}>
-          <Button
+          <div
             className={`font-${secondaryFont} py-[10px] px-[16px] text-[16px] w-[231px] h-[44px] ${
               buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
             }`}
             style={{ backgroundColor: secondaryColor, color: textColor }}
           >
             {communityButtonText}
-          </Button>
+          </div>
         </div>
 
         {/* Main content container with fixed width */}
         <div className="justify-center h-[195.15px] w-[837px] my-auto grid grid-cols-[60%_40%] gap-[32px]">
           {/* Left content area - titles */}
           <div
-            className={`h-[130px] tracking-[-.05em] font-${primaryFont} leading-[100%] font-semibold text-${commonConfig.fontSize?.heading} text-${textColor} text-right`}
+            className={`h-[130px] tracking-[-.05em] font-${primaryFont} leading-[100%] font-semibold text-${fontSize?.heading} text-${textColor} text-right`}
           >
             {heading}
           </div>
@@ -111,35 +127,32 @@ function SocialBanner({
           {/* Right content area - sub-titles */}
           <div className="grid grid-rows-[70%_30%]">
             <div
-              className={`align-left text-${commonConfig.fontSize?.description} font-${secondaryFont} tracking-[-.05em] leading-[100%] font-normal text-${textColor}`}
+              className={`align-left text-${fontSize?.description} font-${secondaryFont} tracking-[-.05em] leading-[100%] font-normal text-${textColor}`}
             >
               {description}
             </div>
             <div className="flex items-end">
-              <Button
+              <div
                 className={`font-${highlightFont} p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[45.15px] w-[184.15px] ${
                   buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
                 }`}
                 style={{ backgroundColor: highlightColor, color: textColor }}
               >
                 {ctaButtonText}
-              </Button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Right side - Headshot with light effect */}
-        <div className="h-full">
-          {/* Light effect behind headshot */}
-          <div className="inset-0 rounded-full opacity-20 bg-white blur-2xl" />
-
+        <div className="relative h-full overflow-hidden rounded-lg">
           {/* Headshot image */}
           <img
             src={imageUrl}
             alt={imageAlt}
             className="object-cover object-right"
             style={{
-              height: `389px`,
+              height: `396px`,
               width: `486px`,
               top: "-60px",
               left: "-60px",
