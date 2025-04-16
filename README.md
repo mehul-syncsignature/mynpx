@@ -16,10 +16,10 @@ Once your project structure is set up and code is in place:
 
 ```bash
 # Build the package
-npm run build
+bun run build
 
 # Create a symlink for local development
-npm link
+bun link
 ```
 
 ### Creating a New Component
@@ -36,6 +36,7 @@ cd ~/projects/my-nextjs-app
 my-ui-cli add button social-banner
 
 ```
+
 ## Publishing Your Package
 
 When ready to share with others:
@@ -58,7 +59,7 @@ npx my-ui-cli add button social-banner
 
 If you encounter issues with local development:
 
-1. Make sure you've built the package with `npm run build`
-2. Check if the symlink is created properly with `npm link`
-3. Try unlinking and relinking with `npm unlink -g my-ui-cli && npm link`
+1. Make sure you've built the package with `bun run build`
+2. Check if the symlink is created properly with `bun link`
+3. Try unlinking and relinking with `bun unlink -g my-ui-cli && bun link`
 4. Verify the paths in your component registry are correct
