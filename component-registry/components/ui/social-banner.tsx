@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Button } from "@/components/ui/button";
 
 // Define prop types for the component
 interface SocialBannerData {
