@@ -33,7 +33,7 @@ After linking your package, you can use it in another project:
 cd ~/projects/my-nextjs-app
 
 # Use your locally linked package
-my-ui-cli add button social-banner
+npx my-ui-cli add social-banner
 
 ```
 
@@ -52,7 +52,7 @@ npm publish
 After publishing, users can install your components using:
 
 ```bash
-npx my-ui-cli add button social-banner
+npx my-ui-cli add social-banner
 ```
 
 ## Troubleshooting
