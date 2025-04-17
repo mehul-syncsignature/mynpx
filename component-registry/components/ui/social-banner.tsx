@@ -130,9 +130,9 @@ function SocialBanner({
         </div>
 
         {/* Right content area - sub-titles */}
-        <div className="grid grid-rows-[65%_35%]">
+        <div className="grid grid-rows-[65%_35%] w-[342px] h-[199px]">
           <div
-            className={`text-left w-[342px] h-[118px] font-${secondaryFont} tracking-[-.05em] leading-[100%] font-normal text-${textColor}`}
+            className={`text-left w-[342px] h-[118px] font-${secondaryFont} tracking-[-5%] leading-[100%] font-normal text-${textColor}`}
             style={{
               fontSize: `${fontSize?.description}`
             }}
@@ -141,7 +141,7 @@ function SocialBanner({
           </div>
           <div className="flex items-end">
             <div
-              className={`font-${highlightFont} p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[45.15px] w-[184.15px] ${
+              className={`font-${highlightFont} p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[49px] w-[188px] ${
                 buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
               }`}
               style={{ backgroundColor: highlightColor, color: textColor }}
