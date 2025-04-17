@@ -304,9 +304,15 @@ export const addCommand = new Command()
                         continue;
                     }
 
+                    // Destination path logic - preserve the directory structure from the file path
+                    // This allows us to maintain both 'components/ui' and 'components/types' structure
+                    const relativeDirPath = path.dirname(relativeFilePath);
                     const fileName = path.basename(relativeFilePath);
-                    // Destination path is inside the target project's component directory
-                    const destinationPath = path.join(targetComponentDir, fileName);
+
+                    // Destination path is inside the target project's directory structure
+                    // We're preserving the directory structure from the component registry
+                    const destinationDir = path.join(targetCwd, relativeDirPath);
+                    const destinationPath = path.join(destinationDir, fileName);
 
                     try {
                         const fileExists = await fs.pathExists(destinationPath);
@@ -334,7 +340,7 @@ export const addCommand = new Command()
 
                         if (shouldCopy) {
                             console.log(chalk.gray(`  Copying ${relativeFilePath} to ${path.relative(targetCwd, destinationPath)}`));
-                            // Ensure parent directory exists before copying (ensureDir above handles the base)
+                            // Create the directory structure if it doesn't exist
                             await fs.ensureDir(path.dirname(destinationPath));
                             await fs.copy(sourcePath, destinationPath, { overwrite: true });
                         }
@@ -400,11 +406,11 @@ export function cn(...inputs: ClassValue[]) {
             // Additional instructions based on project type
             if (config.projectType === 'next') {
                 console.log(chalk.blue('\nFor Next.js projects:'));
-                console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - Components are added to the "components/ui" and "components/types" directories'));
                 console.log(chalk.yellow('  - Make sure to import them with the correct path in your Next.js pages/components'));
             } else {
                 console.log(chalk.blue('\nFor React projects:'));
-                console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - Components are added to the "components/ui" and "components/types" directories'));
                 console.log(chalk.yellow('  - Make sure to import them with the correct path in your React components'));
             }
 
