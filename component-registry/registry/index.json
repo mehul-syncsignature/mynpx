@@ -1,10 +1,12 @@
-{
-  "name": "social-banner",
-  "files": [
-    "components/ui/social-banner.tsx",
-    "components/types/index.ts"
-  ],
-  "registryDependencies": [
-    "cn"
-  ]
-}
+[
+  {
+    "name": "social-banner",
+    "files": [
+      "components/ui/social-banner.tsx",
+      "components/types/index.ts"
+    ],
+    "registryDependencies": [
+      "cn"
+    ]
+  }
+]

@@ -210,7 +210,14 @@ Processing ${component.name}...`));
           continue;
         }
         const fileName = path.basename(relativeFilePath);
-        const destinationPath = path.join(targetComponentDir, fileName);
+        const isTypeFile = relativeFilePath.includes("components/types");
+        let destinationDir;
+        if (isTypeFile) {
+          destinationDir = path.join(targetCwd, "components/types");
+        } else {
+          destinationDir = targetComponentDir;
+        }
+        const destinationPath = path.join(destinationDir, fileName);
         try {
           const fileExists = await fs.pathExists(destinationPath);
           let shouldCopy = true;
@@ -284,11 +291,13 @@ export function cn(...inputs: ClassValue[]) {
     console.log(chalk.yellow("Make sure you have the necessary base setup (like Tailwind, clsx, tailwind-merge) for your components."));
     if (config.projectType === "next") {
       console.log(chalk.blue("\nFor Next.js projects:"));
-      console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+      console.log(chalk.yellow('  - UI components are added to the "components/instant-branding" directory'));
+      console.log(chalk.yellow('  - Types are added to the "components/types" directory'));
       console.log(chalk.yellow("  - Make sure to import them with the correct path in your Next.js pages/components"));
     } else {
       console.log(chalk.blue("\nFor React projects:"));
-      console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+      console.log(chalk.yellow('  - UI components are added to the "components/instant-branding" directory'));
+      console.log(chalk.yellow('  - Types are added to the "components/types" directory'));
       console.log(chalk.yellow("  - Make sure to import them with the correct path in your React components"));
     }
   } catch (error) {
