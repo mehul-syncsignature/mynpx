@@ -304,9 +304,23 @@ export const addCommand = new Command()
                         continue;
                     }
 
+                    // Get file name and determine if it's a type or UI component
                     const fileName = path.basename(relativeFilePath);
-                    // Destination path is inside the target project's component directory
-                    const destinationPath = path.join(targetComponentDir, fileName);
+
+                    // Check if the file is coming from the types directory
+                    const isTypeFile = relativeFilePath.includes('components/types');
+
+                    // Set destination directory - types go to components/types, UI components go to components/instant-branding
+                    let destinationDir;
+                    if (isTypeFile) {
+                        // For type files, preserve the types directory structure
+                        destinationDir = path.join(targetCwd, 'components/types');
+                    } else {
+                        // For UI components, put them in the instant-branding directory
+                        destinationDir = targetComponentDir;
+                    }
+
+                    const destinationPath = path.join(destinationDir, fileName);
 
                     try {
                         const fileExists = await fs.pathExists(destinationPath);
@@ -334,7 +348,7 @@ export const addCommand = new Command()
 
                         if (shouldCopy) {
                             console.log(chalk.gray(`  Copying ${relativeFilePath} to ${path.relative(targetCwd, destinationPath)}`));
-                            // Ensure parent directory exists before copying (ensureDir above handles the base)
+                            // Create the directory structure if it doesn't exist
                             await fs.ensureDir(path.dirname(destinationPath));
                             await fs.copy(sourcePath, destinationPath, { overwrite: true });
                         }
@@ -400,11 +414,13 @@ export function cn(...inputs: ClassValue[]) {
             // Additional instructions based on project type
             if (config.projectType === 'next') {
                 console.log(chalk.blue('\nFor Next.js projects:'));
-                console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - UI components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - Types are added to the "components/types" directory'));
                 console.log(chalk.yellow('  - Make sure to import them with the correct path in your Next.js pages/components'));
             } else {
                 console.log(chalk.blue('\nFor React projects:'));
-                console.log(chalk.yellow('  - Components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - UI components are added to the "components/instant-branding" directory'));
+                console.log(chalk.yellow('  - Types are added to the "components/types" directory'));
                 console.log(chalk.yellow('  - Make sure to import them with the correct path in your React components'));
             }
 
