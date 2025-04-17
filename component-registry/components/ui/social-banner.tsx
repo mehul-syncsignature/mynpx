@@ -91,7 +91,6 @@ function SocialBanner({
               className={`text-left w-[342px] h-[118px] font-${secondaryFont} tracking-[-0.05em] leading-[100%] font-normal text-${textColor}`}
               style={{
                 fontSize: `${fontSize?.description}`,
-                fontFamily: `DM Sans`
               }}
             >
               {description}
