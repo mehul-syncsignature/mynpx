@@ -62,12 +62,14 @@ function SocialBanner({
       />
       <div className="relative grid grid-cols-[20%_60%_20%]">
         {/* JOIN OUR COMMUNITY button at top left */}
-        <div className={`font-${secondaryFont} pl-[40px] pt-[40px]`}>
+        <div className={`pl-[40px] pt-[40px]`} 
+          style={{fontFamily: secondaryFont,}}
+        >
           <div
-            className={`font-${secondaryFont} py-[10px] px-[16px] text-[16px] w-[231px] h-[44px] ${
+            className={`py-[10px] px-[16px] text-[16px] w-[231px] h-[44px] ${
               buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
             }`}
-            style={{ backgroundColor: secondaryColor, color: textColor }}
+            style={{ backgroundColor: secondaryColor, color: textColor, fontFamily: secondaryFont,}}
           >
             {communityButtonText}
           </div>
@@ -77,9 +79,11 @@ function SocialBanner({
         <div className="justify-center h-[199.15px] w-[837px] my-auto grid grid-cols-[60%_40%] gap-[32px]">
           {/* Left content area - titles */}
           <div
-            className={`h-[130px] tracking-[-.05em] font-${primaryFont} leading-[100%] font-semibold  text-${textColor} text-right`}
+            className={`h-[130px] tracking-[-.05em] leading-[100%] font-semibold   text-right`}
             style={{
               fontSize: `${fontSize?.heading}`,
+              fontFamily: secondaryFont,
+              color: textColor,
             }}
           >
             {heading}
@@ -88,19 +92,23 @@ function SocialBanner({
           {/* Right content area - sub-titles */}
           <div className="grid grid-rows-[65%_35%] w-[342px] h-[199px]">
             <div
-              className={`text-left w-[342px] h-[118px] font-${secondaryFont} tracking-[-0.05em] leading-[100%] font-normal text-${textColor}`}
+              className={`text-left w-[342px] h-[118px] tracking-[-0.05em] leading-[100%] font-normal`}
               style={{
                 fontSize: `${fontSize?.description}`,
+                fontFamily: secondaryFont,
+                color: textColor,
               }}
             >
               {description}
             </div>
             <div className="flex items-end">
               <div
-                className={`font-${highlightFont} text-center p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[49px] w-[188px] ${
-                  buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
-                }`}
-                style={{ backgroundColor: highlightColor, color: textColor }}
+                className={`text-center p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[49px] w-[188px]`}
+                style={{ 
+                  backgroundColor: highlightColor,
+                  color: textColor,
+                  fontFamily: highlightFont,
+                  borderRadius: (buttonStyle === "rounded") ? "6px" : "0px"}}
               >
                 {ctaButtonText}
               </div>
