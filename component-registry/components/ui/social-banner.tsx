@@ -42,6 +42,15 @@ function SocialBanner({
     ctaButtonText = "Start Free Trial",
   } = data;
 
+  const middlecontentCSS = heading 
+    ? "justify-center h-[199.15px] w-[837px] my-auto grid grid-cols-[60%_40%] gap-[32px]"
+    : "h-[199.15px] my-auto justify-items-center-safe";
+
+    const descritpionCSS = heading
+    ? "text-left w-[559px] h-[135px] tracking-[-0.05em] font-normal"
+    : "justify-center tracking-[-.05em] font-normal";
+
+
   return (
     <div
       className={cn("relative", className)}
@@ -55,7 +64,7 @@ function SocialBanner({
         className="absolute right-0 w-full h-full"
         style={{
           backgroundImage: `url(${backdropConfig?.backdropUrl})`,
-          backgroundSize: "contain",
+          backgroundSize: `${backdropConfig?.backdropSize}`,
           backgroundPosition: `${backdropConfig?.backdropPosition}`,
           backgroundRepeat: "no-repeat",
         }}
@@ -66,20 +75,22 @@ function SocialBanner({
           style={{fontFamily: secondaryFont,}}
         >
           <div
-            className={`py-[10px] px-[16px] text-[16px] w-[231px] h-[44px] ${
-              buttonStyle === "rounded" ? "rounded-md" : "rounded-none"
-            }`}
-            style={{ backgroundColor: secondaryColor, color: textColor, fontFamily: secondaryFont,}}
+            className={`py-[10px] px-[16px] text-[16px] w-[231px] h-[44px]`}
+            style={{ backgroundColor: secondaryColor,
+              color: textColor, 
+              fontFamily: secondaryFont,
+              borderRadius: (buttonStyle === "rounded") ? "6px" : "0px"
+            }}
           >
             {communityButtonText}
           </div>
         </div>
 
         {/* Main content container with fixed width */}
-        <div className="justify-center h-[199.15px] w-[837px] my-auto grid grid-cols-[60%_40%] gap-[32px]">
+        <div className={cn(heading ? "justify-center h-[199.15px] w-[837px] my-auto grid grid-cols-[60%_40%] gap-[32px]":"h-[199.15px] my-auto justify-items-center-safe")}>
           {/* Left content area - titles */}
           <div
-            className={`h-[130px] tracking-[-.05em] leading-[100%] font-semibold   text-right`}
+            className={cn(heading ? "h-[130px] tracking-[-.05em] leading-[100%] font-semibold text-right": "")}
             style={{
               fontSize: `${fontSize?.heading}`,
               fontFamily: secondaryFont,
@@ -90,9 +101,9 @@ function SocialBanner({
           </div>
 
           {/* Right content area - sub-titles */}
-          <div className="grid grid-rows-[65%_35%] w-[342px] h-[199px]">
+          <div className={cn(heading ? "grid grid-rows-[65%_35%] w-[342px] h-[199px]" : "grid grid-rows-[60%_40%] gap-[32px] h-[135px] w-[559px]")}>
             <div
-              className={`text-left w-[342px] h-[118px] tracking-[-0.05em] leading-[100%] font-normal`}
+              className={cn(heading ? "text-left w-[342px] h-[118px] tracking-[-0.05em] leading-[100%] font-normal" : "tracking-[-0.05em] leading-[100%] h-[54px] w-[559px]")}
               style={{
                 fontSize: `${fontSize?.description}`,
                 fontFamily: secondaryFont,
@@ -103,7 +114,7 @@ function SocialBanner({
             </div>
             <div className="flex items-end">
               <div
-                className={`text-center p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[49px] w-[188px]`}
+                className={`text-center p-[14.08px] tracking-[-.05em] leading-[100%] text-[24.63px] font-semibold h-[49px] w-[188px]}`}
                 style={{ 
                   backgroundColor: highlightColor,
                   color: textColor,
